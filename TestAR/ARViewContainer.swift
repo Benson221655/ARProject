@@ -39,7 +39,8 @@ struct ARViewContainer: UIViewRepresentable {
            let tapLocation = gestureRecognizer.location(in: arView)
            let results = arView.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .horizontal)
            if let firstResult = results.first {
-               let location = simd_make_float3(firstResult.worldTransform.columns.3)
+               var location = simd_make_float3(firstResult.worldTransform.columns.3)
+               location.y += 0.025
                let sphere = createSphere()
                let objectAnchor = AnchorEntity(world: location)
                objectAnchor.addChild(sphere)
